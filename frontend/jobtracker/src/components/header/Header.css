@@ -18,21 +18,22 @@
     right: 1rem;
 }
 
-.header-button button{
-    padding: 8px 16px;
+.header-button .add-btn{
+    padding: 0.5rem 1rem;
     font-size: 0.9rem;
     background: linear-gradient(to right, var(--cor-fonte2), var(--cor-fonte3));
     border: none;
     border-radius: 8px;
     cursor: pointer;
+    text-decoration: none;
 }
 
-.header-button button:hover{
+.header-button .add-btn:hover{
     border: 1px solid #fff;
 }
 
 .container-title{
-    margin: 2rem 0;
+    margin: 2rem 0 3rem 0;
 }
 
 
