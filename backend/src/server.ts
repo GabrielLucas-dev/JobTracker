@@ -1,14 +1,13 @@
-import express from 'express'
-import cors from 'cors'
+import express from "express";
+import cors from "cors";
+import candidaturaRoute from './routes/candidaturaRoute.ts'
 
 const app = express();
 
+app.use(express.json());
 app.use(cors());
-app.use(express.json())
 
-app.get("/", (req, res) => {
-    return res.send('typescript okay!')
-});
+app.use('/candidatura', candidaturaRoute)
 
-const PORT: number = 3032 
-app.listen(PORT, () => console.log(`Rodando na porta ${PORT}`))
+const PORT: number = 3030;
+app.listen(PORT, () => console.log(`Rodando na porta ${PORT}`));

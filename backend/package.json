@@ -6,7 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx src/server.ts",
-    "db": "tsx src/db/db_conn.ts"
+    "db": "tsx src/config/db_conn.ts",
+    "can": "tsx src/repository/candidaturaRepository.ts",
+    "ser": "tsx src/service/candidaturaService.ts",
+    "con": "tsx src/controller/candidaturaController.ts"
   },
   "keywords": [],
   "author": "",
