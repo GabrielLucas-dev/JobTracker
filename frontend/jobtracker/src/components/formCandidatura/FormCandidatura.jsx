@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import "./FormCandidatura.css";
 import { useState } from "react";
+import axios from 'axios'
 
 function FormCandidatura() {
   const [empresa, setEmpresa] = useState("");
@@ -10,8 +11,20 @@ function FormCandidatura() {
   const [observacao, setObservacao] = useState("");
 
   function handleStatus(e) {
+    e.preventDefault();
     setStatus(e.target.value);
   }
+
+  function handleFormSubmit(event) {
+    event.preventDefault();
+
+    if(status === "selecione") return alert("Selecione um Status para a sua candidatura!")
+
+    axios.post('http://localhost:3030/candidaturas', {empresa, dataCandidatura, status, localCandidatura, observacao})
+    .then(res => console.log(res.data))
+    .catch(error => console.log("ERRO: ", error)) 
+  }
+
 
   return (
     <>
@@ -25,43 +38,47 @@ function FormCandidatura() {
       </div>
       <section className="container-candidatura">
         <div className="inner-candidatura">
-          <form action="">
-            <label htmlFor="">Nome empresa</label>
+          <form action="" onSubmit={handleFormSubmit}>
+            <label>Nome empresa*</label>
             <input
               type="text"
               className="input-candidatura"
               onChange={(e) => setEmpresa(e.target.value)}
               placeholder="EX: Eempresa tal"
+              required
             />
-            <label htmlFor="">Data da candidatura</label>
+            <label>Data da candidatura*</label>
             <input
               type="text"
               className="input-candidatura"
               onChange={(e) => setDataCandidatura(e.target.value)}
               placeholder="EX: 01/01/2026"
+              required
             />
-            <label htmlFor="">Status</label>
+            <label>Status*</label>
             <select name="status-candidatura" id="" onChange={handleStatus}>
               <option value="selecione">Selecione</option>
               <option value="aguardando">Aguardando</option>
               <option value="aprovado">Aprovado</option>
               <option value="entrevista">Em entrevista</option>
               <option value="reprovado">Reprovado</option>
-              <option value="cancelada">Cancelada</option>
+              <option value="cancelado">Cancelada</option>
             </select>
-            <label htmlFor="">Local da candidatura</label>
+            <label>Local da candidatura*</label>
             <input
               type="text"
               className="input-candidatura"
               onChange={(e) => setLocalCandidatura(e.target.value)}
               placeholder="EX: Linkedin"
+              required
             />
-            <label htmlFor="">Observação</label>
+            <label>Observação</label>
             <textarea
               name=""
               id=""
               placeholder=""
               onChange={(e) => setObservacao(e.target.value)}
+              
             ></textarea>
 
             <div className="submit-btn">

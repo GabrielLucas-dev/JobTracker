@@ -1,6 +1,18 @@
+import { useEffect, useState } from 'react';
 import './Content.css'
+import axios from 'axios';
 
 function Content() {
+
+    const [ candidaturas, setCandidaturas ] = useState([]);
+
+    useEffect(() => {
+        axios.get('http://localhost:3030/candidaturas')
+        .then(res => {
+            setCandidaturas(res.data)
+        }). catch(error => console.log(error))
+    }, [])
+
     return(
         <>
         <section className='container-content'>
@@ -11,36 +23,20 @@ function Content() {
                     <div><h3>Status</h3></div>
                     <div><h3></h3></div>
                 </div>
-                <div className='inner-content'>
-                    <div>Atendo360</div>
-                    <div>10/03/2026 18h50</div>
-                    <div>Aprovado</div>
+
+                {candidaturas.map((candidatura, i) => (
+                <div className='inner-content' key={i}>
+                    <div>{candidatura.empresa}</div>
+                    <div>{candidatura.data_candidatura}</div>
+                    <div>{candidatura.status_candidatura}</div>
                     <div>
                         <button className='edit-btn'>Editar</button>
                         <button className='exclude-btn'>Excluir</button>
                         <button className='infos-btn'>Infos</button>
-                    </div>
+                    </div> 
                 </div>
-                <div className='inner-content'>
-                    <div>Atendo360</div>
-                    <div>10/03/2026 18h50</div>
-                    <div>Reprovado</div>
-                    <div>
-                        <button className='edit-btn'>Editar</button>
-                        <button className='exclude-btn'>Excluir</button>
-                        <button className='infos-btn'>Infos</button>
-                    </div>
-                </div>
-                <div className='inner-content'>
-                    <div>Atendo360</div>
-                    <div>10/03/2026 18h50</div>
-                    <div>Aguardando</div>
-                    <div>
-                        <button className='edit-btn'>Editar</button>
-                        <button className='exclude-btn'>Excluir</button>
-                        <button className='infos-btn'>infos</button>
-                    </div>
-                </div>
+                ))}
+
             </div>
         </section>
         </>
