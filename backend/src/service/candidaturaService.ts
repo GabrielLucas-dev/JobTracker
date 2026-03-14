@@ -11,7 +11,14 @@ export async function getCandidaturas(): Promise<Candidatura[]> {
 }
 
 export async function createCandidatura(data: any): Promise<Candidatura[]> {    //parametro de dados que será utiliazado no Controller
-  const candidaturas = await candidaturaRepository.createCandidatura(data);
+  const candidatura = await candidaturaRepository.createCandidatura(data);
 
-  return candidaturas;
+  return candidatura;
+}
+
+export async function deleteCandidatura(id: number): Promise<Candidatura[]> {
+    if(!id) throw new Error('ID inexistente!')
+
+    const deletar = await candidaturaRepository.removeCandidatura(id);
+    return deletar;
 }

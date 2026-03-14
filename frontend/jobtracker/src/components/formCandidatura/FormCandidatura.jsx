@@ -1,28 +1,40 @@
-import { Link } from "react-router-dom";
+import { data, Link } from "react-router-dom";
 import "./FormCandidatura.css";
 import { useState } from "react";
 import axios from 'axios'
+import { useNavigate } from "react-router-dom";
 
 function FormCandidatura() {
   const [empresa, setEmpresa] = useState("");
   const [dataCandidatura, setDataCandidatura] = useState("");
-  const [status, setStatus] = useState("selecione");
+  const [statusCandidatura, setStatusCandidatura] = useState("selecione");
   const [localCandidatura, setLocalCandidatura] = useState("");
   const [observacao, setObservacao] = useState("");
 
+  const navigate = useNavigate();
+
   function handleStatus(e) {
     e.preventDefault();
-    setStatus(e.target.value);
+    setStatusCandidatura(e.target.value);
   }
 
   function handleFormSubmit(event) {
     event.preventDefault();
 
-    if(status === "selecione") return alert("Selecione um Status para a sua candidatura!")
+    if(statusCandidatura === "selecione") return alert("Selecione um status para a sua candidatura!")
 
-    axios.post('http://localhost:3030/candidaturas', {empresa, dataCandidatura, status, localCandidatura, observacao})
-    .then(res => console.log(res.data))
+    axios.post('http://localhost:3030/candidaturas', {empresa, dataCandidatura, statusCandidatura, localCandidatura, observacao})
+    .then(res => { 
+      console.log(res.data)
+      navigate('/home');
+    })
     .catch(error => console.log("ERRO: ", error)) 
+
+    empresa('')
+    dataCandidatura('')
+    statusCandidatura('selecione')
+    localCandidatura('')
+    observacao('')
   }
 
 
@@ -56,7 +68,7 @@ function FormCandidatura() {
               required
             />
             <label>Status*</label>
-            <select name="status-candidatura" id="" onChange={handleStatus}>
+            <select name="status_candidatura" id="" onChange={handleStatus}>
               <option value="selecione">Selecione</option>
               <option value="aguardando">Aguardando</option>
               <option value="aprovado">Aprovado</option>

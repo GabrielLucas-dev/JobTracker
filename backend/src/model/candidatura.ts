@@ -1,11 +1,13 @@
 //enum improvisado  
-export type StatusCandidatura = 
-    | 'aguardando'
-    | 'aprovado'
-    | 'entrevista'
-    | 'reprovado'
-    | 'cancelado';
+export const StatusCandidatura = {
+    aguardando: 'aguardando',
+    aprovado: 'aprovado',
+    entrevista: 'entrevista',
+    reprovado: 'reprovado',
+    cancelado: 'cancelado'
+} as const;
 
+export type StatusCandidatura = typeof StatusCandidatura[keyof typeof StatusCandidatura];
 
 export interface Candidatura {
     id_candidatura: number 

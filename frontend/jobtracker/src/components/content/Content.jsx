@@ -13,6 +13,14 @@ function Content() {
         }). catch(error => console.log(error))
     }, [])
 
+    const handledelete = async (id) => {
+        await axios.delete('http://localhost:3030/candidaturas/'+id)
+        .then(res => {
+            console.log(res.data)
+            window.location.reload()
+        }).catch(error => console.log(error));
+    }   
+
     return(
         <>
         <section className='container-content'>
@@ -31,7 +39,7 @@ function Content() {
                     <div>{candidatura.status_candidatura}</div>
                     <div>
                         <button className='edit-btn'>Editar</button>
-                        <button className='exclude-btn'>Excluir</button>
+                        <button className='exclude-btn' onClick={e => handledelete(data.id)}>Excluir</button>
                         <button className='infos-btn'>Infos</button>
                     </div> 
                 </div>
