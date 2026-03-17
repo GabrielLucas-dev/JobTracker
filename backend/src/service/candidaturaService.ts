@@ -22,3 +22,10 @@ export async function deleteCandidatura(id: number): Promise<Candidatura[]> {
     const deletar = await candidaturaRepository.removeCandidatura(id);
     return deletar;
 }
+
+export async function editCandidatura(data: any, id: number): Promise<Candidatura[]> {
+  if(!id) throw new Error("ID inexistente!")
+
+    const edit = await candidaturaRepository.alterCandidatura(data, id);
+    return edit;
+}

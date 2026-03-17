@@ -37,5 +37,22 @@ export async function removeCandidatura(id: number) {
   return result; 
 }
 
+//PUT
+export async function alterCandidatura(candidatura: any , id: number) {
+  const sql = `ALTER TABLE candidatura
+               SET empresa = ?, data_candidatura = ?, status_candidatura = ?, local_candidatura = ?, observacao = ?
+               WHERE id_candidatura = ?`
+
+  const values = [
+    candidatura.empresa,
+    candidatura.data_candidatura,
+    candidatura.status_candidatura,
+    candidatura.local_candidatura,
+    candidatura.observacao,
+  ]
+
+  const [result] = db.query(sql, [...values, id])
+  return result
+} 
 
 

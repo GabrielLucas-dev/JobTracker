@@ -32,13 +32,19 @@ function Content() {
   // MODAL EDIT --------------------------------------
   const [isOpen, setIsOpen] = useState(false);
 
-  function showEdit() {
+  const closeModal = () => setIsOpen(false);
+
+  //EDIT --------------------------------------------- ARRUMAR HOJEEEEEEE (17/03/26)
+
+  const [candidaturaSelecionada, setCandidaturaSelecionada] = useState(null);
+  const handleEdit = (candidatura) => {
+    setCandidaturaSelecionada(candidatura)
     setIsOpen(true);
   }
 
   return (
     <>
-      <div className={isOpen ? 'blur' : ''}>
+      <div className={isOpen ? "blur" : ""}>
         <Header />
         <section className="container-content">
           <div className="content-layout">
@@ -62,25 +68,33 @@ function Content() {
                 <div>{candidatura.empresa}</div>
                 <div>{candidatura.data_candidatura}</div>
                 <div>{candidatura.status_candidatura}</div>
-                <div>
-                  <button className="edit-btn" onClick={(e) => showEdit(true)}>
-                    Editar
-                  </button>
-                  <button
-                    className="exclude-btn"
-                    onClick={(e) => handleDelete(candidatura.id_candidatura)}
-                  >
-                    Excluir
-                  </button>
-                  <button className="infos-btn">Infos</button>
-                </div>
+                {isOpen ? (
+                  ""
+                ) : (
+                  <div>
+                    <button
+                      className="edit-btn"
+                      onClick={(e) => handleEdit(candidatura)}
+                    >
+                      Editar
+                    </button>
+                    <button
+                      className="exclude-btn"
+                      onClick={(e) => handleDelete(candidatura.id_candidatura)}
+                    >
+                      Excluir
+                    </button>
+
+                    <button className="infos-btn">Infos</button>
+                  </div>
+                )}
               </div>
             ))}
           </div>
         </section>
-        <div className="modal-edit">
-          {isOpen ? <ModalEditCandidatura /> : ""}
-        </div>
+      </div>
+      <div className="modal-edit">
+        {isOpen ? <ModalEditCandidatura onClose={closeModal} candidatura={candidaturaSelecionada}/> : ""}
       </div>
     </>
   );
