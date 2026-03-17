@@ -33,7 +33,7 @@ export async function createCandidatura(candidatura: any) {
 export async function removeCandidatura(id: number) {
   const sql = "DELETE FROM candidatura WHERE id_candidatura = ?"
 
-  const [result] = await db.query(sql)
+  const [result] = await db.query(sql, [id])
   return result; 
 }
 

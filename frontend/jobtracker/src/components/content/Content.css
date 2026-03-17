@@ -58,11 +58,11 @@
 }
 @media (max-width: 1400px) {
   .exclude-btn,
-.edit-btn,
-.infos-btn {
-  padding: 0.4rem 1.25rem;
-  margin: 0.1rem 1rem 0 0;
-}
+  .edit-btn,
+  .infos-btn {
+    padding: 0.4rem 1.25rem;
+    margin: 0.1rem 1rem 0 0;
+  }
 }
 
 @media (max-width: 1180px) {
@@ -81,4 +81,11 @@
     align-items: center;
     padding: 0.75rem;
   }
+}
+
+.blur {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(48px);
+  background-color: rgba(0, 0, 0, 0.3);
+  height: 100vh;
 }

@@ -1,4 +1,4 @@
-import { data, Link } from "react-router-dom";
+import {  Link } from "react-router-dom";
 import "./FormCandidatura.css";
 import { useState } from "react";
 import axios from 'axios'
@@ -24,10 +24,7 @@ function FormCandidatura() {
     if(statusCandidatura === "selecione") return alert("Selecione um status para a sua candidatura!")
 
     axios.post('http://localhost:3030/candidaturas', {empresa, dataCandidatura, statusCandidatura, localCandidatura, observacao})
-    .then(res => { 
-      console.log(res.data)
-      navigate('/home');
-    })
+    .then(navigate('/home'))
     .catch(error => console.log("ERRO: ", error)) 
 
     empresa('')
@@ -90,7 +87,6 @@ function FormCandidatura() {
               id=""
               placeholder=""
               onChange={(e) => setObservacao(e.target.value)}
-              
             ></textarea>
 
             <div className="submit-btn">

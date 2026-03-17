@@ -1,0 +1,21 @@
+.container-modal-edit{
+    width: 100%;
+}
+
+.edit-candidatura{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #474747;
+    padding: 1rem;
+    border-radius: 16px;
+}
+
+.input-candidatura, textarea, select{
+    padding: 8px;
+    border-radius: 8px;
+    outline: none;
+    border: none;
+    color: #000;
+}

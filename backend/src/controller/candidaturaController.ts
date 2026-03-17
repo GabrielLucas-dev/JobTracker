@@ -20,8 +20,8 @@ export async function postCandidatura(req: Request, res: Response) {
     return res.status(201).json(candidaturas);
 }
 
-export async function deleteCandidatura(req: Request, res: Response) {
-    const id_candidatura: number = req.params.id_candidatura;
+export async function deleteCandidatura(req: Request<{id_candidatura :number}>, res: Response) {
+    const id_candidatura = req.params.id_candidatura;
     const remove = await candidaturaService.deleteCandidatura(id_candidatura)
 
     return res.status(201).json(remove);
