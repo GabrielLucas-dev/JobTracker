@@ -3,6 +3,7 @@ import "./Content.css";
 import axios from "axios";
 import ModalEditCandidatura from "../modalEditCandidatura/ModalEditCandidatura";
 import Header from "../header/Header";
+import { Link } from "react-router-dom";
 
 function Content() {
   const [candidaturas, setCandidaturas] = useState([]);
@@ -34,13 +35,13 @@ function Content() {
 
   const closeModal = () => setIsOpen(false);
 
-  //EDIT --------------------------------------------- ARRUMAR HOJEEEEEEE (17/03/26)
+  //EDIT --------------------------------------------- 
 
   const [candidaturaSelecionada, setCandidaturaSelecionada] = useState(null);
   const handleEdit = (candidatura) => {
-    setCandidaturaSelecionada(candidatura)
+    setCandidaturaSelecionada(candidatura);
     setIsOpen(true);
-  }
+  };
 
   return (
     <>
@@ -84,8 +85,9 @@ function Content() {
                     >
                       Excluir
                     </button>
-
-                    <button className="infos-btn">Infos</button>
+                    <Link to={`/infosCandidatura/${candidatura.id_candidatura}`} className="infos-btn">
+                      Infos
+                    </Link>
                   </div>
                 )}
               </div>
@@ -94,7 +96,14 @@ function Content() {
         </section>
       </div>
       <div className="modal-edit">
-        {isOpen ? <ModalEditCandidatura onClose={closeModal} candidatura={candidaturaSelecionada}/> : ""}
+        {isOpen ? (
+          <ModalEditCandidatura
+            onClose={closeModal}
+            candidatura={candidaturaSelecionada}
+          />
+        ) : (
+          ""
+        )}
       </div>
     </>
   );

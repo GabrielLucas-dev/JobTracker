@@ -30,8 +30,8 @@
 .exclude-btn,
 .edit-btn,
 .infos-btn {
-  padding: 0.4rem 1.5rem;
-  margin: 0.1rem 1.25rem 0 0;
+  padding: 0.3rem 1.5rem;
+  margin: 0 1rem 0 0;
   border-radius: 8px;
   border: none;
   cursor: pointer;
@@ -52,6 +52,8 @@
 }
 .infos-btn {
   background-color: #3662c8;
+  text-decoration: none;
+  font-size: 0.8rem;
 }
 .infos-btn:hover {
   background-color: #2b50a6;

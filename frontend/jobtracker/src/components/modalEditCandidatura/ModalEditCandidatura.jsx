@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 
 function ModalEditCandidatura({ onClose, candidatura }) {
 
-  const id_candidatura = useParams()
   const [empresa, setEmpresa] = useState("");
   const [dataCandidatura, setDataCandidatura] = useState("");
   const [statusCandidatura, setStatusCandidatura] = useState("");
@@ -29,12 +28,20 @@ function ModalEditCandidatura({ onClose, candidatura }) {
 
   function handleEditSubmit(e) {
     e.preventDefault();
-    axios.put(`http://localhost:3030/candidaturas/${id_candidatura}`, {empresa, dataCandidatura, statusCandidatura, localCandidatura, oberservacao})
+    axios
+      .put(`http://localhost:3030/candidaturas/${candidatura.id_candidatura}`, {
+        empresa,
+        dataCandidatura,
+        statusCandidatura,
+        localCandidatura,
+        oberservacao,
+      }) 
       .then((res) => {
-        console.log(res.data)
-        console.log(empresa, dataCandidatura, statusCandidatura, localCandidatura, oberservacao)
+        console.log(res.data);
       })
       .catch((error) => console.log(error));
+
+      console.log(candidatura)
   }
 
   return (

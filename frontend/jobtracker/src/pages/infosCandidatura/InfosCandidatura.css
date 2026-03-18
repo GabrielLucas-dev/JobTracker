@@ -1,0 +1,14 @@
+.container-infos{
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    height: 90vh;
+}
+
+.inner-infos{
+    width: 480px;
+}
+
+.inner-infos h3{
+    padding: 16px 0 2px 0;
+}

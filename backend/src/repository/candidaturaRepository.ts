@@ -39,7 +39,7 @@ export async function removeCandidatura(id: number) {
 
 //PUT
 export async function alterCandidatura(candidatura: any , id: number) {
-  const sql = `ALTER TABLE candidatura
+  const sql = `UPDATE candidatura
                SET empresa = ?, data_candidatura = ?, status_candidatura = ?, local_candidatura = ?, observacao = ?
                WHERE id_candidatura = ?`
 
@@ -55,4 +55,14 @@ export async function alterCandidatura(candidatura: any , id: number) {
   return result
 } 
 
+//GET BY ID
+export async function findCandidaturaById(id: number) {
+    const sql = "SELECT * FROM candidatura WHERE id_candidatura = ?"
+    const [result] = await db.query(sql, [id])
+    return result[0]
+}
 
+findCandidaturaById()
+.then((result) => {
+  return result
+}).catch(error => console.log(error))
