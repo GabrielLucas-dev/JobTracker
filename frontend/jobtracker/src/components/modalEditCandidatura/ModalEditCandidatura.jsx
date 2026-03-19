@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import "./ModalEditCandidatura.css";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 
 function ModalEditCandidatura({ onClose, candidatura }) {
 
@@ -9,7 +8,7 @@ function ModalEditCandidatura({ onClose, candidatura }) {
   const [dataCandidatura, setDataCandidatura] = useState("");
   const [statusCandidatura, setStatusCandidatura] = useState("");
   const [localCandidatura, setLocalCandidatura] = useState("");
-  const [oberservacao, setObservacao] = useState("");
+  const [observacao, setObservacao] = useState("");
 
   useEffect(() => {
     if (candidatura) {
@@ -26,22 +25,28 @@ function ModalEditCandidatura({ onClose, candidatura }) {
     setStatusCandidatura(e.target.value);
   }
 
-  function handleEditSubmit(e) {
-    e.preventDefault();
+  function handleEditSubmit(e) {  // Funcionou, agora tem que utilizar um useEffect para atualizar a pagina ou um window.location.reload() para recarregar a pagina
+                                  // Setar o isOpen como false, pelo onClose (ver como sera feito)
+  e.preventDefault();
+
+  if(statusCandidatura === "selecione"){
+    return alert("Selecione um status para a sua candidatura!")
+  }
+
     axios
       .put(`http://localhost:3030/candidaturas/${candidatura.id_candidatura}`, {
         empresa,
         dataCandidatura,
         statusCandidatura,
         localCandidatura,
-        oberservacao,
+        observacao,
       }) 
       .then((res) => {
         console.log(res.data);
       })
       .catch((error) => console.log(error));
 
-      console.log(candidatura)
+      window.location.reload();
   }
 
   return (
@@ -92,7 +97,7 @@ function ModalEditCandidatura({ onClose, candidatura }) {
             <label>Observação</label>
             <textarea
               className="input-candidatura"
-              value={oberservacao}
+              value={observacao}
               onChange={(e) => setObservacao(e.target.value)}
             ></textarea>
 
