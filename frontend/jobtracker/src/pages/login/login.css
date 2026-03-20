@@ -38,7 +38,7 @@
     background: linear-gradient(to right, var(--cor-fonte2), var(--cor-fonte3));
     border: none;
     color: #fff;
-    padding: 6px;
+    padding: 8px;
     margin-top: 1rem;
     cursor: pointer;
 }

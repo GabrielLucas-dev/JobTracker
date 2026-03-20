@@ -6,3 +6,10 @@ export async function createUser(data: any) {
 
     return user
 }
+
+export async function getUsers(): Promise<Users[]> {
+    const users = await userRepository.findUsers()
+    if(!users) console.log('Não há usuarios')
+    
+    return users   
+}

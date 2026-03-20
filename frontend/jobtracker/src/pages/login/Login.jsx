@@ -17,11 +17,11 @@ function Login() {
           <form action="" className="form-login">
             <div>
               <label>Email</label>
-              <input type="email" onChange={(e) => setEmail(e.target.value)}/>
+              <input type="email" onChange={(e) => setEmail(e.target.value)} required/>
             </div>
             <div>
               <label>Senha</label>
-              <input type="password" onChange={(e) => setSenha(e.target.value)}/>
+              <input type="password" onChange={(e) => setSenha(e.target.value)} required/>
             </div>
             <div>
               <input type="submit" value="Entrar" className="btn-login"/>

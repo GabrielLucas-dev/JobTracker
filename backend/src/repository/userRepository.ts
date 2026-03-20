@@ -1,5 +1,6 @@
-import type { Users } from "../model/users.js";
-import { db } from "../config/db_conn.js";
+import { error } from "node:console";
+import { db } from "../config/db_conn.ts";
+import type { Users } from "../model/users.ts";
 
 export async function postUser(users: any) {
     const sql = "INSERT INTO users (nome, email, senha) VALUES (?, ?, ?)"
@@ -12,3 +13,15 @@ export async function postUser(users: any) {
     const [result] = await db.query(sql, values)
     return result;
 }
+
+export async function findUsers(): Promise<Users[]> {
+    const sql = 'SELECT * FROM users'
+    const [rows] = await db.query(sql)
+    return rows as Users[]; 
+}
+
+findUsers()
+.then((result) => {
+    return result
+}).catch(error => console.log(error))
+
