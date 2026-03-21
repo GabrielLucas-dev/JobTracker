@@ -10,10 +10,16 @@ function Register() {
 
     function handleSubmit(e) {
       e.preventDefault()
-      
+
       axios.post('http://localhost:3030/users', {nome, email, senha})
       .then(res => console.log(res.data))
-      .catch(error => console.log(error))
+      .catch(error => {
+        if(error.status == 400) {
+          alert('Email já cadastrado!')
+        } else{
+          console.log(error)
+        }
+      })
 
       // NÃO DEIXAR O USUARIO SER CRIADO SE O EMAIL JÁ ESTIVER SENDO UTILIZADO
     }
