@@ -3,8 +3,8 @@ import express from 'express'
 
 const router = express.Router()
 
-router.post('/', createUser)
+router.post('/register', createUser)
 router.get('/', getUsers)
-router.post('/', getLogin)
+router.post('/login', getLogin)
 
 export default router

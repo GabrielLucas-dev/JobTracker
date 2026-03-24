@@ -36,10 +36,13 @@ findUserEmail()
   .catch((error) => console.log(error));
 
 // PEGAR USUÁRIO PARA LOGIN
-export async function findDataLogin(email: string, senha: string) {
+export async function findDataLogin(email: string) {
   const sql = "SELECT * FROM users WHERE email = ?"
-  const result = await db.query(sql, [email, senha])
+  const [result] = await db.query(sql, [email])
   return result
 }
 
-
+findDataLogin()
+  .then((result) => {
+    return result
+  }).catch((error) => console.log(error))

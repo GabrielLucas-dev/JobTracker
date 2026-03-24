@@ -1,6 +1,7 @@
 import type { Users } from '../model/users.js'
 import * as userRepository from '../repository/userRepository.ts'
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
 export async function createUser(data: any) {
     if(!data) throw new Error("dados inexistentes!")
@@ -26,14 +27,22 @@ export async function getUsers(): Promise<Users[]> {
 }
 
 export async function getLogin(email: string, senha: string) {
-    const users: any = await userRepository.findUserEmail(email)
+    const users: any = await userRepository.findDataLogin(email)
     
-    if(!users) throw new Error("Usuário não econtrado")
-
-    const user = users[0];  //retorna o primeiro usuario (pois só há um usuario por email, ou seja, retornará o usuario que foi buscado)
+    if(!users || users.length === 0){ 
+        throw new Error("Usuário não econtrado")
+}
+    const user = users[0];  //retorna o primeiro usuario (pois só há um usuario por email, ou seja, retornará o primeiro e unico usuario buscado)
 
     const compare: boolean = await bcrypt.compare(senha, user.senha)
-    if(!compare) throw new Error('Senha incorreta!')
+    if(!compare){ 
+        throw new Error('Senha incorreta!')
+}
+    delete user.senha;
+
+    const JWT_SECRET: any = process.env.JWT_SECRET
+    const token = jwt.sign({email}, JWT_SECRET, {expiresIn: "1h"} )
+
 
     return user    
 }
