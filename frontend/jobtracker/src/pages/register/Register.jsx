@@ -20,8 +20,7 @@ function Register() {
           console.log(error)
         }
       })
-
-      // NÃO DEIXAR O USUARIO SER CRIADO SE O EMAIL JÁ ESTIVER SENDO UTILIZADO
+      
     }
 
     return(

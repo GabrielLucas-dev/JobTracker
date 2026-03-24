@@ -1,9 +1,10 @@
-import { error } from "node:console";
 import { db } from "../config/db_conn.ts";
 import type { Users } from "../model/users.ts";
+import bcrypt from 'bcrypt';
 
 export async function postUser(users: any) {
   const sql = "INSERT INTO users (nome, email, senha) VALUES (?, ?, ?)";
+
   const values = [users.nome, users.email, users.senha];
 
   const [result] = await db.query(sql, values);
@@ -33,3 +34,12 @@ findUserEmail()
     return result;
   })
   .catch((error) => console.log(error));
+
+// PEGAR USUÁRIO PARA LOGIN
+export async function findDataLogin(email: string, senha: string) {
+  const sql = "SELECT * FROM users WHERE email = ?"
+  const result = await db.query(sql, [email, senha])
+  return result
+}
+
+

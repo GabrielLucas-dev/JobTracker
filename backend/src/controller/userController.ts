@@ -19,8 +19,22 @@ export async function createUser(req: Request, res: Response) {
 export async function getUsers(req: Request, res: Response) {
     try{
         const users = await userService.getUsers()
+        
         return res.status(200).json(users)
     } catch (error: any) {
+        return res.status(400).send({error: error.message})
+    }
+}
+
+export async function getLogin(req: Request, res: Response) {
+    try{
+        const email: any = { email: req.body.email }
+        const senha: any = { senha: req.body.senha }
+
+        const user = await userService.getLogin(email, senha)
+    
+        return res.status(200).json(user)
+    } catch(error: any) {
         return res.status(400).send({error: error.message})
     }
 }
