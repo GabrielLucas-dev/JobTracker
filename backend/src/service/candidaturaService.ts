@@ -15,7 +15,7 @@ export async function createCandidatura(data: any): Promise<Candidatura[]> {
   return candidatura;
 }
 
-export async function deleteCandidatura(id: number): Promise<Candidatura[]> {
+export async function deleteCandidatura(id: string): Promise<Candidatura[]> {
   if (!id) throw new Error("ID inexistente!");
 
   const deletar = await candidaturaRepository.removeCandidatura(id);
@@ -24,7 +24,7 @@ export async function deleteCandidatura(id: number): Promise<Candidatura[]> {
 
 export async function editCandidatura(
   data: any,
-  id: number,
+  id: string,
 ): Promise<Candidatura[]> {
   if (!id) throw new Error("ID inexistente!");
 
@@ -32,7 +32,7 @@ export async function editCandidatura(
   return edit;
 }
 
-export async function getCandidaturaById(id: number): Promise<Candidatura[]> {
+export async function getCandidaturaById(id: string): Promise<Candidatura[]> {
   const candidatura = await candidaturaRepository.findCandidaturaById(id);
   if (!id) throw new Error("ID inexistente!");
 

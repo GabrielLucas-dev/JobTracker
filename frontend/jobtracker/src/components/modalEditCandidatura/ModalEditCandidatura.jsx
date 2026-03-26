@@ -33,6 +33,8 @@ function ModalEditCandidatura({ onClose, candidatura }) {
     return alert("Selecione um status para a sua candidatura!")
   }
 
+  const token = localStorage.getItem("token");
+
     axios
       .put(`http://localhost:3030/candidaturas/${candidatura.id_candidatura}`, {
         empresa,
@@ -40,6 +42,10 @@ function ModalEditCandidatura({ onClose, candidatura }) {
         statusCandidatura,
         localCandidatura,
         observacao,
+      }, {
+        headers:{
+          Authorization: `Bearer ${token}`
+        }
       }) 
       .then((res) => {
         console.log(res.data);

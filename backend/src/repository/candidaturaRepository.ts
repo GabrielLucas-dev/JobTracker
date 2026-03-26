@@ -30,7 +30,7 @@ export async function createCandidatura(candidatura: any) {
 } 
 
 //DELETE
-export async function removeCandidatura(id: number) {
+export async function removeCandidatura(id: string) {
   const sql = "DELETE FROM candidatura WHERE id_candidatura = ?"
 
   const [result] = await db.query(sql, [id])
@@ -38,7 +38,7 @@ export async function removeCandidatura(id: number) {
 }
 
 //PUT
-export async function alterCandidatura(candidatura: any , id: number) {
+export async function alterCandidatura(candidatura: any , id: string) {
   const sql = `UPDATE candidatura
                SET empresa = ?, data_candidatura = ?, status_candidatura = ?, local_candidatura = ?, observacao = ?
                WHERE id_candidatura = ?`
@@ -56,7 +56,7 @@ export async function alterCandidatura(candidatura: any , id: number) {
 } 
 
 //GET BY ID
-export async function findCandidaturaById(id: number) {
+export async function findCandidaturaById(id: string) {
     const sql = "SELECT * FROM candidatura WHERE id_candidatura = ?"
     const [result] = await db.query(sql, [id])
     return result[0]

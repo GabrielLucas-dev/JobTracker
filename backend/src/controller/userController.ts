@@ -34,6 +34,6 @@ export async function getLogin(req: Request, res: Response) {
     
         return res.status(200).json(user)
     } catch(error: any) {
-        return res.status(400).send({error: error.message})
+        return res.status(400).json({error: error.message})
     }
 }

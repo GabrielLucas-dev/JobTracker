@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "./Login.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -15,7 +15,9 @@ function Login() {
 
     axios.post("http://localhost:3030/users/login", { email, senha })
     .then(res => {
-      console.log(res.data)
+      localStorage.setItem("token", res.data.token)
+      console.log("TOKEN: ", localStorage.getItem("token"))
+
       navigate('/home')
     })
     .catch(error => {

@@ -41,8 +41,8 @@ export async function getLogin(email: string, senha: string) {
     delete user.senha;
 
     const JWT_SECRET: any = process.env.JWT_SECRET
-    const token = jwt.sign({email}, JWT_SECRET, {expiresIn: "1h"} )
+                          //payload, chave privada, validade
+    const token = jwt.sign({email: user.email}, JWT_SECRET, {expiresIn: "1h"} )
 
-
-    return user    
+    return {user, token}    
 }

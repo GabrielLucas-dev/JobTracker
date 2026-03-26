@@ -27,7 +27,7 @@ export async function postCandidatura(req: Request, res: Response) {
 }
 
 export async function deleteCandidatura(
-  req: Request<{ id_candidatura: number }>,
+  req: Request<{ id_candidatura: string }>,
   res: Response,
 ) {
   const id_candidatura = req.params.id_candidatura;
@@ -37,7 +37,7 @@ export async function deleteCandidatura(
 }
 
 export async function editCandidatura(
-  req: Request<{ id_candidatura: number }>,
+  req: Request<{ id_candidatura: string }>,
   res: Response,
 ) {
   const id_candidatura = req.params.id_candidatura;
@@ -64,7 +64,7 @@ export async function editCandidatura(
 }
 
 export async function getCandidaturaById(
-  req: Request<{ id_candidatura: number }>,
+  req: Request<{ id_candidatura: string }>,
   res: Response,
 ) {
   const id_candidatura = req.params.id_candidatura;

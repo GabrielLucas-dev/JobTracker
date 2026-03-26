@@ -18,12 +18,22 @@ function FormCandidatura() {
     setStatusCandidatura(e.target.value);
   }
 
+  const token = localStorage.getItem("token")
+  if(!token) {
+    alert('A sessão expirou, faça login novamente')
+    navigate("/login")
+  }
+
   function handleFormSubmit(event) {
     event.preventDefault();
 
     if(statusCandidatura === "selecione") return alert("Selecione um status para a sua candidatura!")
 
-    axios.post('http://localhost:3030/candidaturas', {empresa, dataCandidatura, statusCandidatura, localCandidatura, observacao})
+    axios.post('http://localhost:3030/candidaturas', {empresa, dataCandidatura, statusCandidatura, localCandidatura, observacao}, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
     .then(navigate('/home'))
     .catch(error => console.log("ERRO: ", error)) 
 
