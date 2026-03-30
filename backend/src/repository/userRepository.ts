@@ -1,6 +1,5 @@
 import { db } from "../config/db_conn.ts";
 import type { Users } from "../model/users.ts";
-import bcrypt from 'bcrypt';
 
 export async function postUser(users: any) {
   const sql = "INSERT INTO users (nome, email, senha) VALUES (?, ?, ?)";

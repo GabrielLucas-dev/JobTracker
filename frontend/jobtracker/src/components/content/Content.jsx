@@ -4,41 +4,45 @@ import axios from "axios";
 import ModalEditCandidatura from "../modalEditCandidatura/ModalEditCandidatura";
 import Header from "../header/Header";
 import { Link } from "react-router-dom";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 function Content() {
   const [candidaturas, setCandidaturas] = useState([]);
 
   const navigate = useNavigate();
 
-  const token = localStorage.getItem("token")
-  if(!token) {
-    alert("A sessão expirou, faça login novamente")
-    navigate('/login')
-  }
+  const token = localStorage.getItem("token");
 
   // GET ALL ----------------------------------------
   useEffect(() => {
+    if (!token) {
+      alert("A sessão expirou, faça login novamente")
+      navigate("/login");
+    }
+
     axios
       .get("http://localhost:3030/candidaturas", {
-        headers:{
-          Authorization: `Bearer ${token}`
-        }
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then((res) => {
         setCandidaturas(res.data);
       })
       .catch((error) => console.log(error));
-  }, [token]);
+  }, [token, navigate]);
 
   // DELETE -----------------------------------------
   const handleDelete = async (id_candidatura) => {
     try {
-      await axios.delete(`http://localhost:3030/candidaturas/${id_candidatura}`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
+      await axios.delete(
+        `http://localhost:3030/candidaturas/${id_candidatura}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
       window.location.reload();
     } catch (error) {
       console.log("ERRO ao deletar: ", error);
@@ -50,7 +54,7 @@ function Content() {
 
   const closeModal = () => setIsOpen(false);
 
-  //EDIT --------------------------------------------- 
+  //EDIT ---------------------------------------------
 
   const [candidaturaSelecionada, setCandidaturaSelecionada] = useState(null);
   const handleEdit = (candidatura) => {
@@ -100,7 +104,10 @@ function Content() {
                     >
                       Excluir
                     </button>
-                    <Link to={`/infosCandidatura/${candidatura.id_candidatura}`} className="infos-btn">
+                    <Link
+                      to={`/infosCandidatura/${candidatura.id_candidatura}`}
+                      className="infos-btn"
+                    >
                       Infos
                     </Link>
                   </div>

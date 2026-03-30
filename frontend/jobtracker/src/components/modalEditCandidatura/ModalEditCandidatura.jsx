@@ -25,8 +25,7 @@ function ModalEditCandidatura({ onClose, candidatura }) {
     setStatusCandidatura(e.target.value);
   }
 
-  function handleEditSubmit(e) {  // Funcionou, agora tem que utilizar um useEffect para atualizar a pagina ou um window.location.reload() para recarregar a pagina
-                                  // Setar o isOpen como false, pelo onClose (ver como sera feito)
+  function handleEditSubmit(e) {
   e.preventDefault();
 
   if(statusCandidatura === "selecione"){

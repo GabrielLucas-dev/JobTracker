@@ -1,7 +1,7 @@
-import {  Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./FormCandidatura.css";
-import { useState } from "react";
-import axios from 'axios'
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function FormCandidatura() {
@@ -11,39 +11,47 @@ function FormCandidatura() {
   const [localCandidatura, setLocalCandidatura] = useState("");
   const [observacao, setObservacao] = useState("");
 
-  const navigate = useNavigate();
-
   function handleStatus(e) {
     e.preventDefault();
     setStatusCandidatura(e.target.value);
   }
 
-  const token = localStorage.getItem("token")
-  if(!token) {
-    alert('A sessão expirou, faça login novamente')
-    navigate("/login")
-  }
+  const navigate = useNavigate();
+
+  const token = localStorage.getItem("token");
+  useEffect(() => {
+    if (!token) {
+    // alert("A sessão expirou, faça login novamente");
+      navigate("/login");
+    }
+    console.log(token)
+  }, [navigate, token]);
 
   function handleFormSubmit(event) {
     event.preventDefault();
 
-    if(statusCandidatura === "selecione") return alert("Selecione um status para a sua candidatura!")
+    if (statusCandidatura === "selecione")
+      return alert("Selecione um status para a sua candidatura!");
 
-    axios.post('http://localhost:3030/candidaturas', {empresa, dataCandidatura, statusCandidatura, localCandidatura, observacao}, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-    .then(navigate('/home'))
-    .catch(error => console.log("ERRO: ", error)) 
-
-    empresa('')
-    dataCandidatura('')
-    statusCandidatura('selecione')
-    localCandidatura('')
-    observacao('')
+    axios
+      .post(
+        "http://localhost:3030/candidaturas",
+        {
+          empresa,
+          dataCandidatura,
+          statusCandidatura,
+          localCandidatura,
+          observacao,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+      .then(() => navigate("/home"))
+      .catch((error) => console.log("ERRO: ", error));
   }
-
 
   return (
     <>

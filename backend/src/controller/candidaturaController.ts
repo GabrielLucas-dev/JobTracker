@@ -1,12 +1,13 @@
 import type { Request, Response } from "express";
 import * as candidaturaService from "../service/candidaturaService.ts";
+import type { AuthRequest } from "../model/authRequest.js";
 
 export async function getCandidaturas(req: Request, res: Response) {
   const candidaturas = await candidaturaService.getCandidaturas();
   return res.status(200).json(candidaturas);
 }
 
-export async function postCandidatura(req: Request, res: Response) {
+export async function postCandidatura(req: AuthRequest, res: Response) {
   const {
     empresa,
     dataCandidatura,
@@ -15,15 +16,25 @@ export async function postCandidatura(req: Request, res: Response) {
     observacao,
   } = req.body;
 
-  const candidaturas = await candidaturaService.createCandidatura({
-    empresa: empresa,
-    data_candidatura: dataCandidatura,
-    status_candidatura: statusCandidatura,
-    local_candidatura: localCandidatura,
-    observacao: observacao,
-  });
+  const userId = (req as any).user.id
+
+  try{
+    const candidaturas = await candidaturaService.createCandidatura({
+      empresa: empresa,
+      data_candidatura: dataCandidatura,
+      status_candidatura: statusCandidatura,
+      local_candidatura: localCandidatura,
+      observacao: observacao,
+      fk_id_user: userId
+    });
 
   return res.status(201).json(candidaturas);
+  } catch(error: any) {
+    res.status(500).json({message: error.message})
+  }
+
+  //fk_id_user ESTA VINDO COMO NULL ARRUMAR ISSO
+
 }
 
 export async function deleteCandidatura(

@@ -15,14 +15,15 @@ findCandidaturas()
 
 //INSERT
 export async function createCandidatura(candidatura: any) {
-  const sql = 'INSERT INTO candidatura (empresa, data_candidatura, status_candidatura, local_candidatura, observacao) VALUES(?, ?, ?, ?, ?)'
+  const sql = 'INSERT INTO candidatura (empresa, data_candidatura, status_candidatura, local_candidatura, observacao, fk_id_user) VALUES(?, ?, ?, ?, ?, ?)'
   
   const values = [
     candidatura.empresa,
     candidatura.data_candidatura,
     candidatura.status_candidatura,
     candidatura.local_candidatura,
-    candidatura.observacao
+    candidatura.observacao,
+    candidatura.fk_id_user
   ];
   const [result] = await db.query(sql, values)
 
