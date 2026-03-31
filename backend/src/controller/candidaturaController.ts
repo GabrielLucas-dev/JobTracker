@@ -2,9 +2,16 @@ import type { Request, Response } from "express";
 import * as candidaturaService from "../service/candidaturaService.ts";
 import type { AuthRequest } from "../model/authRequest.js";
 
-export async function getCandidaturas(req: Request, res: Response) {
-  const candidaturas = await candidaturaService.getCandidaturas();
-  return res.status(200).json(candidaturas);
+export async function getCandidaturas(req: AuthRequest, res: Response) {
+  const userId: string = (req as any).user.id
+
+  const candidaturas = await candidaturaService.getCandidaturas(userId);
+
+  try{
+    return res.status(200).json(candidaturas);
+  } catch(error: any) {
+    res.status(400).json({message: error.message})
+  }
 }
 
 export async function postCandidatura(req: AuthRequest, res: Response) {
@@ -32,8 +39,6 @@ export async function postCandidatura(req: AuthRequest, res: Response) {
   } catch(error: any) {
     res.status(500).json({message: error.message})
   }
-
-  //fk_id_user ESTA VINDO COMO NULL ARRUMAR ISSO
 
 }
 

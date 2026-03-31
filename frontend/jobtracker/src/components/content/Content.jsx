@@ -16,7 +16,7 @@ function Content() {
   // GET ALL ----------------------------------------
   useEffect(() => {
     if (!token) {
-      alert("A sessão expirou, faça login novamente")
+      alert("A sessão expirou, faça login novamente");
       navigate("/login");
     }
 
@@ -29,7 +29,12 @@ function Content() {
       .then((res) => {
         setCandidaturas(res.data);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        if(error.response?.status === 401) {
+          localStorage.removeItem("token")
+          navigate("/login")
+        }
+      });
   }, [token, navigate]);
 
   // DELETE -----------------------------------------
@@ -41,8 +46,8 @@ function Content() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
-      );
+        }
+      )
       window.location.reload();
     } catch (error) {
       console.log("ERRO ao deletar: ", error);

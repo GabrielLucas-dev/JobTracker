@@ -2,9 +2,9 @@ import { db } from "../config/db_conn.ts";
 import type { Candidatura } from "../model/candidatura.ts";
 
 //GET ALL
-export async function findCandidaturas(): Promise<Candidatura[]> {
-  const sql = "SELECT * FROM candidatura";
-  const [rows] = await db.query(sql);
+export async function findCandidaturas(id: string): Promise<Candidatura[]> {
+  const sql = "SELECT * FROM candidatura WHERE fk_id_user = ?";
+  const [rows] = await db.query(sql, [id]);
   return rows as Candidatura[];
 }
 

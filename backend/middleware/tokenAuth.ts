@@ -13,7 +13,7 @@ export function tokenAuth(req: Request, res: Response, next: NextFunction) {
         const decoded: any = jwt.verify(token, JWT_SECRET)
         req.user = decoded;
 
-        console.log("TOKEN DECODED: ", decoded)
+        // console.log("TOKEN DECODED: ", decoded)
         return next();
     } catch(error: any) {
         console.log("ERROR TOKEN: ", error.message)

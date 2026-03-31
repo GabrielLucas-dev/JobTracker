@@ -42,7 +42,7 @@ export async function getLogin(email: string, senha: string) {
 
     const JWT_SECRET: any = process.env.JWT_SECRET
                             //payload                           chave privada   validade
-    const token = jwt.sign({id: user.id_user, email: user.email}, JWT_SECRET, {expiresIn: "1h"} )
+    const token = jwt.sign({id: user.id_user, email: user.email}, JWT_SECRET, {expiresIn: "60s"} )
 
     return {user, token}    
 }
